@@ -7,6 +7,7 @@ import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import com.nwidart.axonwebinar.coreapi.transfer.CompleteMoneyTransferCommand;
 import com.nwidart.axonwebinar.coreapi.transfer.MoneyTransferCompletedEvent;
 import com.nwidart.axonwebinar.coreapi.transfer.MoneyTransferRequestedEvent;
+import org.axonframework.commandhandling.callbacks.LoggingCallback;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.saga.EndSaga;
 import org.axonframework.eventhandling.saga.SagaEventHandler;
@@ -25,17 +26,18 @@ public class MoneyTransferSaga {
     targetAccount = event.getTargetAccount();
     commandGateway
         .send(new WithdrawMoneyCommand(event.getSourceAccount(), event.getTransferId(),
-            event.getAmount()));
+            event.getAmount()), LoggingCallback.INSTANCE);
   }
 
   @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
   public void on(MoneyWithdrawnEvent event) {
-    commandGateway.send(new DepositMoneyCommand(targetAccount, event.getTransactionId(), event.getAmount()));
+    commandGateway.send(new DepositMoneyCommand(targetAccount, event.getTransactionId(), event.getAmount()),
+        LoggingCallback.INSTANCE);
   }
 
   @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
   public void on(MoneyDepositedEvent event) {
-    commandGateway.send(new CompleteMoneyTransferCommand(event.getTransactionId()));
+    commandGateway.send(new CompleteMoneyTransferCommand(event.getTransactionId()), LoggingCallback.INSTANCE);
   }
 
   @EndSaga

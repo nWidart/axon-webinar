@@ -4,6 +4,8 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
 import com.nwidart.axonwebinar.coreapi.account.AccountCreatedEvent;
 import com.nwidart.axonwebinar.coreapi.account.CreateAccountCommand;
+import com.nwidart.axonwebinar.coreapi.account.DepositMoneyCommand;
+import com.nwidart.axonwebinar.coreapi.account.MoneyDepositedEvent;
 import com.nwidart.axonwebinar.coreapi.account.MoneyWithdrawnEvent;
 import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import lombok.NoArgsConstructor;
@@ -35,11 +37,16 @@ public class Account {
       throw new OverdraftLimitExceededException();
     }
     apply(new MoneyWithdrawnEvent(
-        command.getAccountId(),
+        accountId,
         command.getTransactionId(),
         command.getAmount(),
         balance - command.getAmount()
     ));
+  }
+
+  @CommandHandler
+  public void handle(DepositMoneyCommand command) {
+    apply(new MoneyDepositedEvent(accountId, command.getTransactionId(), command.getAmount(), balance));
   }
 
   @EventSourcingHandler

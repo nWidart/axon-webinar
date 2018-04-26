@@ -1,10 +1,12 @@
 package com.nwidart.axonwebinar.coreapi.account;
 
 import lombok.Data;
+import org.axonframework.commandhandling.TargetAggregateIdentifier;
 
 @Data
 public class DepositMoneyCommand {
 
+  @TargetAggregateIdentifier
   private String accountId;
   private String transactionId;
   private Integer amount;
