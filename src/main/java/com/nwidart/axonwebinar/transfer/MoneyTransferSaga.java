@@ -16,6 +16,6 @@ public class MoneyTransferSaga {
   @SagaEventHandler(associationProperty = "transferId")
   public void on(MoneyTransferRequestedEvent event) {
     commandGateway
-        .send(new WithdrawMoneyCommand(event.getSourceAccount(), "tx1", event.getAmount()));
+        .send(new WithdrawMoneyCommand(event.getSourceAccount(), event.getTransferId(), event.getAmount()));
   }
 }
