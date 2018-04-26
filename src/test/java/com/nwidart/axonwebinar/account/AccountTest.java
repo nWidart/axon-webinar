@@ -27,14 +27,14 @@ public class AccountTest {
   @Test
   public void testWithdrawReasonableAmount() {
     fixture.given(new AccountCreatedEvent("1234", 1000))
-        .when(new WithdrawMoneyCommand("1234", 600))
-        .expectEvents(new MoneyWithdrawnEvent("1234", 600, -600));
+        .when(new WithdrawMoneyCommand("1234", "tx1", 600))
+        .expectEvents(new MoneyWithdrawnEvent("1234", "tx1", 600, -600));
   }
 
   @Test
   public void testWithdrawAbsurdAmount() {
     fixture.given(new AccountCreatedEvent("1234", 1000))
-        .when(new WithdrawMoneyCommand("1234", 1001))
+        .when(new WithdrawMoneyCommand("1234", "tx1", 1001))
         .expectNoEvents()
         .expectException(OverdraftLimitExceededException.class);
   }
@@ -43,9 +43,9 @@ public class AccountTest {
   public void testWithdrawTwice() {
     fixture.given(
         new AccountCreatedEvent("1234", 1000),
-        new MoneyWithdrawnEvent("1234", 999, -999)
+        new MoneyWithdrawnEvent("1234", "tx1", 999, -999)
     )
-        .when(new WithdrawMoneyCommand("1234", 2))
+        .when(new WithdrawMoneyCommand("1234", "tx1", 2))
         .expectNoEvents()
         .expectException(OverdraftLimitExceededException.class);
   }

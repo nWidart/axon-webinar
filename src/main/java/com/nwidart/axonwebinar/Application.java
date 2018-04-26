@@ -20,7 +20,7 @@ public class Application {
     config.start();
 
     config.commandBus().dispatch(asCommandMessage(new CreateAccountCommand("1234", 500)));
-    config.commandBus().dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", 250)));
-    config.commandBus().dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", 251 )));
+    config.commandBus().dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", "tx1", 250)));
+    config.commandBus().dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", "tx1", 251)));
   }
 }
