@@ -23,8 +23,8 @@ public class AxonWebinarApplication {
 
     final CommandBus commandBus = config.getBean(CommandBus.class);
     commandBus.dispatch(asCommandMessage(new CreateAccountCommand("1234", 500)));
-    commandBus.dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", 250)));
-    commandBus.dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", 251)));
+    commandBus.dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", "tx1", 250)));
+    commandBus.dispatch(asCommandMessage(new WithdrawMoneyCommand("1234", "tx1", 251)));
   }
 
   @Bean
