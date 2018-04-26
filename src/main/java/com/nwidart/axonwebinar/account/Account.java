@@ -36,7 +36,7 @@ public class Account {
     }
     apply(new MoneyWithdrawnEvent(
         command.getAccountId(),
-        "tx1",
+        command.getTransactionId(),
         command.getAmount(),
         balance - command.getAmount()
     ));
