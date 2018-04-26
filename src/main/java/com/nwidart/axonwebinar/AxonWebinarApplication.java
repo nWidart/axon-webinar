@@ -2,8 +2,8 @@ package com.nwidart.axonwebinar;
 
 import static org.axonframework.commandhandling.GenericCommandMessage.asCommandMessage;
 
-import com.nwidart.axonwebinar.coreapi.CreateAccountCommand;
-import com.nwidart.axonwebinar.coreapi.WithdrawMoneyCommand;
+import com.nwidart.axonwebinar.coreapi.account.CreateAccountCommand;
+import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;

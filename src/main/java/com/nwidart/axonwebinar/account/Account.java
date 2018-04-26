@@ -2,10 +2,10 @@ package com.nwidart.axonwebinar.account;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
-import com.nwidart.axonwebinar.coreapi.AccountCreatedEvent;
-import com.nwidart.axonwebinar.coreapi.CreateAccountCommand;
-import com.nwidart.axonwebinar.coreapi.MoneyWithdrawnEvent;
-import com.nwidart.axonwebinar.coreapi.WithdrawMoneyCommand;
+import com.nwidart.axonwebinar.coreapi.account.AccountCreatedEvent;
+import com.nwidart.axonwebinar.coreapi.account.CreateAccountCommand;
+import com.nwidart.axonwebinar.coreapi.account.MoneyWithdrawnEvent;
+import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;

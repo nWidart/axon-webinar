@@ -1,9 +1,9 @@
 package com.nwidart.axonwebinar.account;
 
-import com.nwidart.axonwebinar.coreapi.AccountCreatedEvent;
-import com.nwidart.axonwebinar.coreapi.CreateAccountCommand;
-import com.nwidart.axonwebinar.coreapi.MoneyWithdrawnEvent;
-import com.nwidart.axonwebinar.coreapi.WithdrawMoneyCommand;
+import com.nwidart.axonwebinar.coreapi.account.AccountCreatedEvent;
+import com.nwidart.axonwebinar.coreapi.account.CreateAccountCommand;
+import com.nwidart.axonwebinar.coreapi.account.MoneyWithdrawnEvent;
+import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.Before;
 import org.junit.Test;
