@@ -23,7 +23,7 @@ public class MoneyTransferSaga {
         .send(new WithdrawMoneyCommand(event.getSourceAccount(), event.getTransferId(),
             event.getAmount()));
   }
-  
+
   @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
   public void on(MoneyWithdrawnEvent event) {
     commandGateway.send(new DepositMoneyCommand(targetAccount, event.getTransactionId(), event.getAmount()));
