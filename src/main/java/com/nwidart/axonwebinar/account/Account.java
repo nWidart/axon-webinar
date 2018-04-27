@@ -46,7 +46,7 @@ public class Account {
 
   @CommandHandler
   public void handle(DepositMoneyCommand command) {
-    apply(new MoneyDepositedEvent(accountId, command.getTransactionId(), command.getAmount(), balance));
+    apply(new MoneyDepositedEvent(accountId, command.getTransactionId(), command.getAmount(), balance + command.getAmount()));
   }
 
   @EventSourcingHandler
