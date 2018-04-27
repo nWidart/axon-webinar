@@ -45,13 +45,13 @@ public class MoneyTransferSaga {
         });
   }
 
-  @SagaEventHandler(associationProperty = "transactionId")
+  @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
   public void on(MoneyWithdrawnEvent event) {
     commandGateway.send(new DepositMoneyCommand(targetAccount, event.getTransactionId(), event.getAmount()),
         LoggingCallback.INSTANCE);
   }
 
-  @SagaEventHandler(associationProperty = "transactionId")
+  @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
   public void on(MoneyDepositedEvent event) {
     commandGateway.send(new CompleteMoneyTransferCommand(event.getTransactionId()), LoggingCallback.INSTANCE);
   }
