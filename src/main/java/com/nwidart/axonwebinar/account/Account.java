@@ -59,4 +59,9 @@ public class Account {
   public void on(MoneyWithdrawnEvent event) {
     this.balance = event.getBalance();
   }
+
+  @EventSourcingHandler
+  public void on(MoneyDepositedEvent event) {
+    this.balance = event.getBalance();
+  }
 }
