@@ -2,6 +2,8 @@ package com.nwidart.axonwebinar.account;
 
 import com.nwidart.axonwebinar.coreapi.account.AccountCreatedEvent;
 import com.nwidart.axonwebinar.coreapi.account.CreateAccountCommand;
+import com.nwidart.axonwebinar.coreapi.account.DepositMoneyCommand;
+import com.nwidart.axonwebinar.coreapi.account.MoneyDepositedEvent;
 import com.nwidart.axonwebinar.coreapi.account.MoneyWithdrawnEvent;
 import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import org.axonframework.test.aggregate.AggregateTestFixture;
@@ -48,5 +50,13 @@ public class AccountTest {
         .when(new WithdrawMoneyCommand("1234", "tx1", 2))
         .expectNoEvents()
         .expectException(OverdraftLimitExceededException.class);
+  }
+
+  @Test
+  public void testDepositMoney() {
+    fixture.given(new AccountCreatedEvent("1234", 1000),
+        new MoneyDepositedEvent("1234", "tx1", 250, 250))
+        .when(new DepositMoneyCommand("1234", "tx1", 500))
+        .expectEvents(new MoneyDepositedEvent("1234", "tx1", 500, 750));
   }
 }
