@@ -1,5 +1,6 @@
 package com.nwidart.axonwebinar.transfer;
 
+import com.nwidart.axonwebinar.LoggingCallback;
 import com.nwidart.axonwebinar.coreapi.account.DepositMoneyCommand;
 import com.nwidart.axonwebinar.coreapi.account.MoneyDepositedEvent;
 import com.nwidart.axonwebinar.coreapi.account.MoneyWithdrawnEvent;
@@ -7,7 +8,6 @@ import com.nwidart.axonwebinar.coreapi.account.WithdrawMoneyCommand;
 import com.nwidart.axonwebinar.coreapi.transfer.CompleteMoneyTransferCommand;
 import com.nwidart.axonwebinar.coreapi.transfer.MoneyTransferCompletedEvent;
 import com.nwidart.axonwebinar.coreapi.transfer.MoneyTransferRequestedEvent;
-import org.axonframework.commandhandling.callbacks.LoggingCallback;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.saga.EndSaga;
 import org.axonframework.eventhandling.saga.SagaEventHandler;
@@ -29,13 +29,13 @@ public class MoneyTransferSaga {
             event.getAmount()), LoggingCallback.INSTANCE);
   }
 
-  @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
+  @SagaEventHandler(associationProperty = "transactionId")
   public void on(MoneyWithdrawnEvent event) {
     commandGateway.send(new DepositMoneyCommand(targetAccount, event.getTransactionId(), event.getAmount()),
         LoggingCallback.INSTANCE);
   }
 
-  @SagaEventHandler(associationProperty = "transactionId", keyName = "transferId")
+  @SagaEventHandler(associationProperty = "transactionId")
   public void on(MoneyDepositedEvent event) {
     commandGateway.send(new CompleteMoneyTransferCommand(event.getTransactionId()), LoggingCallback.INSTANCE);
   }

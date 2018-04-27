@@ -5,12 +5,13 @@ import static org.axonframework.commandhandling.GenericCommandMessage.asCommandM
 import com.nwidart.axonwebinar.account.Account;
 import com.nwidart.axonwebinar.coreapi.account.CreateAccountCommand;
 import com.nwidart.axonwebinar.coreapi.transfer.RequestMoneyTransferCommand;
+import com.nwidart.axonwebinar.transfer.LoggingEventHandler;
 import com.nwidart.axonwebinar.transfer.MoneyTransfer;
 import com.nwidart.axonwebinar.transfer.MoneyTransferSaga;
-import org.axonframework.commandhandling.callbacks.LoggingCallback;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.config.Configuration;
 import org.axonframework.config.DefaultConfigurer;
+import org.axonframework.config.EventHandlingConfiguration;
 import org.axonframework.config.SagaConfiguration;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
 
@@ -21,6 +22,8 @@ public class Application {
         .configureAggregate(Account.class)
         .configureAggregate(MoneyTransfer.class)
         .registerModule(SagaConfiguration.subscribingSagaManager(MoneyTransferSaga.class))
+        .registerModule(new EventHandlingConfiguration()
+            .registerEventHandler(c -> new LoggingEventHandler()))
         .configureEmbeddedEventStore(c -> new InMemoryEventStorageEngine())
         .buildConfiguration();
 
