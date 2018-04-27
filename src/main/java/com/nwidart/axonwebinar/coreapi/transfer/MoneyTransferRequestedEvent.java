@@ -1,12 +1,10 @@
 package com.nwidart.axonwebinar.coreapi.transfer;
 
 import lombok.Data;
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
 
 @Data
 public class MoneyTransferRequestedEvent {
 
-  @TargetAggregateIdentifier
   private String transferId;
   private String sourceAccount;
   private String targetAccount;
